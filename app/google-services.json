@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "454154697565",
+    "firebase_url": "https://ezhospital-efdac.firebaseio.com",
+    "project_id": "ezhospital-efdac",
+    "storage_bucket": "ezhospital-efdac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454154697565:android:662764c22053adb57ac6b4",
+        "android_client_info": {
+          "package_name": "com.example.ezhospital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454154697565-l704ikf9a6cl34f57ev6l0tru2o7j3ql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ezhospital",
+            "certificate_hash": "902e83c034f20e708b6ac2613dfde3c212ce0780"
+          }
+        },
+        {
+          "client_id": "454154697565-b0em1s8ab9tbv7oe3v9h4mmmtfmf9963.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPPvzPsti76QwL7tnqAFc0g86VcalEgLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454154697565-b0em1s8ab9tbv7oe3v9h4mmmtfmf9963.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
