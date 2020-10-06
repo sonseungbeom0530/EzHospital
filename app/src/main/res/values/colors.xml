@@ -11,5 +11,6 @@
     <color name="green">#46A84A</color>
     <color name="red">#AE0909</color>
     <color name="colorBackground">#FDF9EE</color>
+    <color name="homeBackground">#DFDFDF</color>
 
 </resources>
