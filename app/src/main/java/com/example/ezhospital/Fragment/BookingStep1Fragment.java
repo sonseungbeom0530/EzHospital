@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ezhospital.Adapter.MySalonAdapter;
+import com.example.ezhospital.Common.Common;
 import com.example.ezhospital.Common.SpaceItemDecoration;
 import com.example.ezhospital.Interface.IAllSalonLoadListener;
 import com.example.ezhospital.Interface.IBranchLoadListener;
@@ -132,6 +133,7 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
 
     private void loadBranchOfCity(String cityName) {
         alertDialog.show();
+        Common.city=cityName;
         branchRef=FirebaseFirestore.getInstance()
                 .collection("AllSalon")
                 .document(cityName)
@@ -143,7 +145,11 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
                 List<Salon> list=new ArrayList<>();
                 if (task.isSuccessful()){
                     for (QueryDocumentSnapshot documentSnapshot:task.getResult())
-                        list.add(documentSnapshot.toObject(Salon.class));
+                    {
+                        Salon salon=documentSnapshot.toObject(Salon.class);
+                        salon.setSalonId(documentSnapshot.getId());
+                        list.add(salon);
+                    }
                     iBranchLoadListener.onBranchLoadSuccess(list);
                 }
             }
