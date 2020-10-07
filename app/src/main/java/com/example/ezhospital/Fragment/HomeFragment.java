@@ -60,8 +60,6 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
     IBannerLoadListener iBannerLoadListener;
     ILookBookLoadListener iLookBookLoadListener;
 
-    @BindView(R.id.card_view_booking)
-    CardView card_view_booking;
     @OnClick(R.id.card_view_booking)
     void booking(){
         startActivity(new Intent(getActivity(), BookingActivity.class));

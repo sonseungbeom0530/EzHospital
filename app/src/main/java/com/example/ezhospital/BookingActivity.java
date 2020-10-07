@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.example.ezhospital.Adapter.LookbookAdapter;
 import com.example.ezhospital.Adapter.MyViewPagerAdapter;
@@ -22,16 +23,16 @@ public class BookingActivity extends AppCompatActivity {
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     @BindView(R.id.btn_prev_step)
-    ViewPager btn_prev_step;
+    Button btn_prev_step;
     @BindView(R.id.btn_next_step)
-    ViewPager btn_next_step;
+    Button btn_next_step;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
 
-        //ButterKnife.bind(BookingActivity.this);
+        ButterKnife.bind(BookingActivity.this);
         
         setupStepView();
         setColorButton();
