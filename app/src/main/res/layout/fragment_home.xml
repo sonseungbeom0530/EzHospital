@@ -25,7 +25,7 @@
             android:orientation="vertical"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content">
 
             <TextView
@@ -43,8 +43,16 @@
                 android:text="Normal"
                 android:textColor="@color/white"
                 android:textSize="16sp"/>
-        </LinearLayout>
 
+        </LinearLayout>
+        <!--<Button
+            android:id="@+id/authentication"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+            android:background="@drawable/ic_baseline_local_hospital_24"
+            android:layout_margin="10dp"
+            />-->
     </LinearLayout>
     
     <LinearLayout

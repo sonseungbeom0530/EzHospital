@@ -1,17 +1,15 @@
 package com.example.ezhospital.Common;
 
-import android.content.Intent;
-import android.os.Parcelable;
-
 import com.example.ezhospital.Model.Barber;
 import com.example.ezhospital.Model.Salon;
-import com.example.ezhospital.Model.TimeSlot;
+import com.example.ezhospital.Model.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Common {
 
+    public static String IS_LOGIN="IsLogin";
     public static final String KEY_ENABLE_BUTTON_NEXT="ENABLE_BUTTON_NEXT";
     public static final String KEY_SALON_STORE = "SALON_SAVE";
     public static final String KEY_BARBER_LOAD_DONE ="BARBER_LOAD_DONE" ;
@@ -26,6 +24,7 @@ public class Common {
     public static int step=0;
     public static String city="";
     public static Barber currentBarber;
+    public static User currentUser;
     public static int currentTimeSlot=-1;
     public static Calendar currentDate=Calendar.getInstance();
     public static SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd_MM_yyyy");

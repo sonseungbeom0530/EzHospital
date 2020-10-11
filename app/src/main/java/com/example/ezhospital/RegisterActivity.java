@@ -39,8 +39,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+
+import butterknife.BindView;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -61,6 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
     private double latitude,longitude;
 
     private LocationManager locationManager;
+
+    CollectionReference userRef;
 
     @Override
 
@@ -87,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         //In the onCreate() method, initialize the FirebaseAuth instance
         firebaseAuth = FirebaseAuth.getInstance();
+
 
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("Registering User...");
@@ -195,7 +202,6 @@ public class RegisterActivity extends AppCompatActivity {
         hashMap.put("email",""+email);
         hashMap.put("name",""+name);
         hashMap.put("password",""+password);
-        hashMap.put("phone",""+phone);
         hashMap.put("timestamp",""+timestamp);
         hashMap.put("accountType","User");
         hashMap.put("online","true");

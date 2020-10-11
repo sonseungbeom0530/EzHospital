@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,12 @@ import com.example.ezhospital.Model.BookingInformation;
 import com.example.ezhospital.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,7 +45,9 @@ public class BookingStep4Fragment extends Fragment {
     SimpleDateFormat simpleDateFormat;
     LocalBroadcastManager localBroadcastManager;
     Unbinder unbinder;
+    FirebaseAuth firebaseAuth;
 
+    private static final String TAG = "Tag";
     @BindView(R.id.txt_booking_barber_text)
     TextView txt_booking_barber_text;
     @BindView(R.id.txt_booking_time_text)
@@ -56,13 +65,39 @@ public class BookingStep4Fragment extends Fragment {
     @OnClick(R.id.btn_confirm)
     void confirmBooking(){
 
+        firebaseAuth=FirebaseAuth.getInstance();
+
         //create booking information
         BookingInformation bookingInformation=new BookingInformation();
 
         bookingInformation.setBarberId(Common.currentBarber.getBarberId());
         bookingInformation.setBarberName(Common.currentBarber.getName());
-        //bookingInformation.setCustomerName(Common.currentUser.getName());
-        //bookingInformation.setCustomerPhone(Common.currentUser.getPhoneNumber());
+       //bookingInformation.setCustomerName(Common.currentUser.getName());
+        //bookingInformation.setCustomerPhone(Common.currentUser.getPhone());
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Users");
+        ref.orderByChild("uid").equalTo(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds:dataSnapshot.getChildren()){
+                    String name=""+ds.child("name").getValue();
+                    //String accountType=""+ds.child("accountType").getValue();
+                    String phone=""+ds.child("phone").getValue();
+
+                    //Log.i(TAG,"name1 : "+name);
+                    //Log.i(TAG,"phone1 : "+phone);
+                    //Common.currentUser.setName(name);
+                    //Common.currentUser.setPhone(phone);
+                    //bookingInformation.setCustomerName(name);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         bookingInformation.setSalonId(Common.currentSalon.getSalonId());
         bookingInformation.setSalonAddress(Common.currentSalon.getAddress());
         bookingInformation.setSalonName(Common.currentSalon.getName());
@@ -96,6 +131,7 @@ public class BookingStep4Fragment extends Fragment {
 
             }
         });
+
 
     }
 
@@ -142,6 +178,7 @@ public class BookingStep4Fragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
+
 
         localBroadcastManager=LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(confirmBookingReceiver,new IntentFilter(Common.KEY_CONFIRM_BOOKING));
