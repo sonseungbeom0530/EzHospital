@@ -20,21 +20,27 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
 
-    BottomSheetDialog bottomSheetDialog;
+    //BottomSheetDialog bottomSheetDialog;
 
-    CollectionReference userRef;
+    //CollectionReference userRef;
 
-    AlertDialog dialog;
+    //AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,24 +49,24 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(MainActivity.this);
 
-        //userRef = FirebaseFirestore.getInstance().collection("Users");
-        //dialog = new SpotsDialog.Builder().setContext(this).build();
+        //userRef = FirebaseFirestore.getInstance().collection("User");
+        /*dialog = new SpotsDialog.Builder().setContext(this).build();
 
-        /*if (getIntent() != null) {
+        if (getIntent() != null) {
             boolean isLogin = getIntent().getBooleanExtra(Common.IS_LOGIN, false);
             if (isLogin) {
                 dialog.show();
-                FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                DocumentReference currentUser = userRef.document(users.getPhoneNumber());
+                DocumentReference currentUser = userRef.document(user.getPhoneNumber());
                 currentUser.get()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot userSnapShot = task.getResult();
                                 if (!userSnapShot.exists()) {
-                                    showUpdateDialog(users.getPhoneNumber());
+                                    showUpdateDialog(user.getPhoneNumber());
                                 } else {
-                                    Common.currentUser = userSnapShot.toObject(Users.class);
+                                    Common.currentUser = userSnapShot.toObject(User.class);
                                     bottomNavigationView.setSelectedItemId(R.id.action_home);
                                 }
                                 if (dialog.isShowing())
@@ -113,17 +119,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!dialog.isShowing())
                     dialog.show();
-                final User users= new User(edt_name.getText().toString(),
+                final User user= new User(edt_name.getText().toString(),
                         edt_address.getText().toString(),phoneNumber);
                 userRef.document(phoneNumber)
-                        .set(users)
+                        .set(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 bottomSheetDialog.dismiss();
                                 if (dialog.isShowing())
                                     dialog.dismiss();
-                                Common.currentUser=users;
+                                Common.currentUser=user;
                                 bottomNavigationView.setSelectedItemId(R.id.action_home);
                                 Toast.makeText(MainActivity.this,"Thank you",Toast.LENGTH_SHORT).show();
                             }

@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 
@@ -59,6 +60,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 
 import java.util.Arrays;
@@ -69,8 +75,6 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final int APP_REQUEST_CODE=7117;
-
     //views
     EditText etEmail,etPassword;
     Button btnLogin;
@@ -78,17 +82,25 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
 
-    private List<AuthUI.IdpConfig> providers;
-    private FirebaseAuth firebaseAuths;
-    private FirebaseAuth.AuthStateListener authStateListener;
-
-
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Dexter.withActivity(this)
+                .withPermissions(new String[]{
+                        Manifest.permission.READ_CALENDAR,
+                        Manifest.permission.WRITE_CALENDAR
+                }).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+            }
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+            }
+        }).check();
 
         //init views
         etEmail=findViewById(R.id.etEmail);
@@ -102,27 +114,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
         progressDialog.setCanceledOnTouchOutside(false);
-
-
-        /*providers= Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
-        firebaseAuths=FirebaseAuth.getInstance();
-        authStateListener=firebaseAuth1 -> {
-            FirebaseUser user=firebaseAuth1.getCurrentUser();
-            if (user!=null){
-                checkUserFromFirebase(user);
-            }
-        };*/
-
-       // AccessToken accessToken=AccountKit.getCurrentAcessToken();
-        //if (accessToken!=null){
-          //  Intent intent=new Intent(this,MainActivity.class);
-            //intent.putExtra(Common.IS_LOGIN,true);
-           // startActivity(intent);
-        //    finish();
-        //}else {
-        //    setContentView(R.layout.activity_login);
-        //    ButterKnife.bind(LoginActivity.this);
-       // }
 
         //handle register button click
         btnLogin.setOnClickListener(new View.OnClickListener(){
@@ -320,70 +311,5 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    private void authentication() {
-        startActivityForResult(AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers).build(),APP_REQUEST_CODE);
-
-        //final Intent intent=new Intent(this,AccountKitActivity.class);
-        //AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder=
-         //       new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE,
-         //               AccountKitActivity.ResponseType.TOKEN);
-        //intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
-        //        configurationBuilder.build);
-        //startActivityForResult(intent,APP_REQUEST_CODE);
-
-    }
-
-
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
-    }*/
-
-    /*@Override
-    public void onStop() {
-        if (authStateListener!=null)
-            firebaseAuth.removeAuthStateListener(authStateListener);
-        super.onStop();
-    }*/
-
-    private void checkUserFromFirebase(FirebaseUser user) {
-        FirebaseInstanceId.getInstance()
-                .getInstanceId()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        //Common.updateToken(getBaseContext(),task.getResult().getToken());
-                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                        intent.putExtra(Common.IS_LOGIN,true);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                }).addOnFailureListener(e -> {
-                   Toast.makeText(LoginActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                   Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                   intent.putExtra(Common.IS_LOGIN,true);
-                   startActivity(intent);
-                   finish();
-                });
-    }
-
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==APP_REQUEST_CODE){
-            IdpResponse response= IdpResponse.fromResultIntent(data);
-
-            if (resultCode==RESULT_OK){
-                FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-            }else {
-                Toast.makeText(LoginActivity.this,"Login cancelled",Toast.LENGTH_SHORT).show();
-            }
-
-        }
-    }*/
 
 }

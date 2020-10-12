@@ -1,10 +1,15 @@
 package com.example.ezhospital.Model;
 
+
+import com.google.firebase.Timestamp;
+
 public class BookingInformation {
 
     private String customerName, customerPhone, time, barberId, barberName,salonId,salonName,salonAddress;
     private Long slot;
 
+    private boolean done;
+    private Timestamp timestamp;
     public BookingInformation() {
     }
 
@@ -90,5 +95,21 @@ public class BookingInformation {
 
     public void setSlot(Long slot) {
         this.slot = slot;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }

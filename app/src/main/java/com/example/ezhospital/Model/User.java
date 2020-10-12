@@ -2,16 +2,15 @@ package com.example.ezhospital.Model;
 
 public class User {
 
-    private String userId,name,address,phoneNumber;
+    private String name,address,phoneNumber;
 
     public User(){}
 
 
-    public User(String userId, String name, String address) {
-        this.userId = userId;
+    public User(String name, String address, String phoneNumber) {
         this.name = name;
         this.address = address;
-
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -36,13 +35,5 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 }
