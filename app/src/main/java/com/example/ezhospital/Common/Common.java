@@ -28,7 +28,6 @@ public class Common {
     public static int step=0;
     public static String city="";
     public static Barber currentBarber;
-    public static User currentUser;
     public static int currentTimeSlot=-1;
     public static Calendar bookingDate=Calendar.getInstance();
     public static SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd_MM_yyyy");

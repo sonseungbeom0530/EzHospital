@@ -319,9 +319,6 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
 
     }
 
-    private void setUserInformation() {
-        txt_user_name.setText(Common.currentUser.getName());
-    }
 
 
     private void checkUser() {
