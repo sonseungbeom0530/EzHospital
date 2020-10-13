@@ -114,11 +114,11 @@ public class BookingStep4Fragment extends Fragment {
         bookingInformation.setSlot(Long.valueOf(Common.currentTimeSlot));
 
         DocumentReference bookingDate=  FirebaseFirestore.getInstance()
-                .collection("AllSalon")
+                .collection("Hospital")
                 .document(Common.city)
                 .collection("Branch")
                 .document(Common.currentDepartment.getSalonId())
-                .collection("Barber")
+                .collection("Doctor")
                 .document(Common.currentBarber.getBarberId())
                 .collection(Common.simpleDateFormat.format(Common.bookingDate.getTime()))
                 .document(String.valueOf(Common.currentTimeSlot));
@@ -167,14 +167,14 @@ public class BookingStep4Fragment extends Fragment {
         String startEventTime=calendarDateFormat.format(startEvent.getTime());
         String endEventTime=calendarDateFormat.format(endEvent.getTime());
 
-        addToDeviceCalendar(startEventTime,endEventTime,"Haircut Booking",
-                new StringBuilder("Haircut from")
-        .append(startTime)
-        .append(" with ")
-        .append(Common.currentBarber.getName())
-        .append(" at ")
+        addToDeviceCalendar(startEventTime,endEventTime,"EzHospital Appointment",
+                new StringBuilder("Time")
+        .append(startTime+"\n")
+        .append("Doctor : ")
+        .append(Common.currentBarber.getName()+"\n")
+        .append("Department : ")
         .append(Common.currentDepartment.getName()).toString(),
-                new StringBuilder("Address : ").append(Common.currentDepartment.getAddress()).toString());
+                new StringBuilder("Location : ").append(Common.currentDepartment.getAddress()).toString());
 
     }
 

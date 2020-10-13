@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
         AlertDialog.Builder confirmDialog=new AlertDialog.Builder(getActivity())
                 .setCancelable(false)
                 .setTitle("Hey!")
-                .setMessage("Do you really want to change booking information? \n Because we will delete your old booking information \n Just confirm")
+                .setMessage("Do you really want to change booking information? \nBecause we will delete your old booking information \n Just confirm")
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -141,11 +141,11 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
             dialog.show();
 
             DocumentReference barberBookingInfo=FirebaseFirestore.getInstance()
-                    .collection("AllSalon")
+                    .collection("Hospital")
                     .document(Common.currentBooking.getCityBook())
                     .collection("Branch")
                     .document(Common.currentBooking.getSalonId())
-                    .collection("Barber")
+                    .collection("Doctor")
                     .document(Common.currentBooking.getBarberId())
                     .collection(Common.convertTimeStampToStringKey(Common.currentBooking.getTimestamp()))
                     .document(Common.currentBooking.getSlot().toString());

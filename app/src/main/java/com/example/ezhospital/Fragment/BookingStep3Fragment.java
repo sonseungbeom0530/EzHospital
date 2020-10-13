@@ -78,11 +78,11 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
 
         ////AllSalon/NewYork/Branch/54Mp1pXRr1zpyPAjNjjT/Barber/2QZ1DBgxDJegAGTsoVG6
         barberDoc= FirebaseFirestore.getInstance()
-                .collection("AllSalon")
+                .collection("Hospital")
                 .document(Common.city)
                 .collection("Branch")
                 .document(Common.currentDepartment.getSalonId())
-                .collection("Barber")
+                .collection("Doctor")
                 .document(Common.currentBarber.getBarberId());
 
         barberDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -92,11 +92,11 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
                     DocumentSnapshot documentSnapshot=task.getResult();
                     if (documentSnapshot.exists()){
                         CollectionReference date=FirebaseFirestore.getInstance()
-                                .collection("AllSalon")
+                                .collection("Hospital")
                                 .document(Common.city)
                                 .collection("Branch")
                                 .document(Common.currentDepartment.getSalonId())
-                                .collection("Barber")
+                                .collection("Doctor")
                                 .document(Common.currentBarber.getBarberId())
                                 .collection(bookDate); //bookDate is date simpleformat with dd_MM_YYYY
 

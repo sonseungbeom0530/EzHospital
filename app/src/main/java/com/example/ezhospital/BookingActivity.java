@@ -106,11 +106,11 @@ public class BookingActivity extends AppCompatActivity {
         ///AllSalon/NewYork/Branch/54Mp1pXRr1zpyPAjNjjT/Baber
         if (!TextUtils.isEmpty(Common.city)){
         barberRef= FirebaseFirestore.getInstance()
-                .collection("AllSalon")
+                .collection("Hospital")
                 .document(Common.city)
                 .collection("Branch")
                 .document(salonId)
-                .collection("Barber");
+                .collection("Doctor");
 
         barberRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -225,7 +225,7 @@ public class BookingActivity extends AppCompatActivity {
     private void setupStepView() {
         List<String> stepList=new ArrayList<>();
         stepList.add("Department");
-        stepList.add("Barber");
+        stepList.add("Doctor");
         stepList.add("Time");
         stepList.add("Confirm");
         stepView.setSteps(stepList);

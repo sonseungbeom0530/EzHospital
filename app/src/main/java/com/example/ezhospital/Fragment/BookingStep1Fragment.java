@@ -66,7 +66,7 @@ public class BookingStep1Fragment extends Fragment implements IHospitalLoadListe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        allSalonRef= FirebaseFirestore.getInstance().collection("AllSalon");
+        allSalonRef= FirebaseFirestore.getInstance().collection("Hospital");
         iHospitalLoadListener =this;
         iBranchLoadListener=this;
 
@@ -134,7 +134,7 @@ public class BookingStep1Fragment extends Fragment implements IHospitalLoadListe
         alertDialog.show();
         Common.city=cityName;
         branchRef=FirebaseFirestore.getInstance()
-                .collection("AllSalon")
+                .collection("Hospital")
                 .document(cityName)
                 .collection("Branch");
 
