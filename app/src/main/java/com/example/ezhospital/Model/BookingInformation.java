@@ -5,7 +5,7 @@ import com.google.firebase.Timestamp;
 
 public class BookingInformation {
 
-    private String customerName, customerPhone, time, barberId, barberName,salonId,salonName,salonAddress;
+    private String cityBook,customerName, customerPhone, time, barberId, barberName,salonId,salonName,salonAddress;
     private Long slot;
 
     private boolean done;
@@ -111,5 +111,13 @@ public class BookingInformation {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getCityBook() {
+        return cityBook;
+    }
+
+    public void setCityBook(String cityBook) {
+        this.cityBook = cityBook;
     }
 }

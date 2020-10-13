@@ -56,6 +56,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
+import io.paperdb.Paper;
 
 public class BookingStep4Fragment extends Fragment {
 
@@ -104,6 +105,7 @@ public class BookingStep4Fragment extends Fragment {
         //create booking information
         BookingInformation bookingInformation=new BookingInformation();
 
+        bookingInformation.setCityBook(Common.city);
         bookingInformation.setTimestamp(timestamp);
         bookingInformation.setDone(false);
         bookingInformation.setBarberId(Common.currentBarber.getBarberId());
@@ -211,8 +213,10 @@ public class BookingStep4Fragment extends Fragment {
                 calendars =Uri.parse("content://calendar/events");
 
 
-            getActivity().getContentResolver().insert(calendars,event);
+            Uri uri_save=getActivity().getContentResolver().insert(calendars,event);
 
+            Paper.init(getActivity());
+            Paper.book().write(Common.EVENT_URI_CACHE,uri_save.toString());
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -255,13 +259,22 @@ public class BookingStep4Fragment extends Fragment {
         final CollectionReference userBooking=FirebaseFirestore.getInstance()
                 .collection("Booking");
 
-        userBooking.whereEqualTo("done",false)
+        Calendar calendar=Calendar.getInstance();
+        calendar.add(Calendar.DATE,0);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+
+        Timestamp toDayTimeStamp=new Timestamp(calendar.getTime());
+
+        userBooking.whereGreaterThanOrEqualTo("timestamp",toDayTimeStamp)
+                .whereEqualTo("done",false)
+                .limit(1)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.getResult().isEmpty())
-                        {
+                        //if (task.getResult().isEmpty())
+                        //{
                             userBooking.document()
                                     .set(bookingInformation)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -284,15 +297,15 @@ public class BookingStep4Fragment extends Fragment {
                                             Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                                         }
                                     });
-                        }
-                        else
-                            {
-                            if (alertDialog.isShowing())
-                                alertDialog.dismiss();
-                            resetStaticData();
-                            getActivity().finish();
-                            Toast.makeText(getContext(),"Success!!!!!",Toast.LENGTH_SHORT).show();
-                        }
+                        //}
+                        //else
+                            //{
+                            //if (alertDialog.isShowing())
+                              //  alertDialog.dismiss();
+                            //resetStaticData();
+                            //getActivity().finish();
+                            //Toast.makeText(getContext(),"Success!!!!!",Toast.LENGTH_SHORT).show();
+                        //}
                     }
                 });
 

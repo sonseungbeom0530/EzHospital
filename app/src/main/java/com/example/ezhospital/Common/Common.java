@@ -1,14 +1,18 @@
 package com.example.ezhospital.Common;
 
 import com.example.ezhospital.Model.Barber;
+import com.example.ezhospital.Model.BookingInformation;
 import com.example.ezhospital.Model.Salon;
 import com.example.ezhospital.Model.User;
+import com.google.firebase.Timestamp;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Common {
 
+    public static final String EVENT_URI_CACHE ="URI_EVENT_SAVE" ;
     public static String IS_LOGIN="IsLogin";
     public static final String KEY_ENABLE_BUTTON_NEXT="ENABLE_BUTTON_NEXT";
     public static final String KEY_SALON_STORE = "SALON_SAVE";
@@ -28,6 +32,8 @@ public class Common {
     public static int currentTimeSlot=-1;
     public static Calendar bookingDate=Calendar.getInstance();
     public static SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd_MM_yyyy");
+    public static BookingInformation currentBooking;
+    public static String currentBookingId="";
 
     public static String convertTimeSlotToString(int slot) {
         switch(slot)
@@ -76,5 +82,11 @@ public class Common {
             default:
                 return "Closed";
         }
+    }
+
+    public static String convertTimeStampToStringKey(Timestamp timestamp) {
+        Date date=timestamp.toDate();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd_MM_yyyy");
+        return simpleDateFormat.format(date);
     }
 }
