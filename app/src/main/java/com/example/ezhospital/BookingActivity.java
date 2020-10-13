@@ -13,9 +13,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.ezhospital.Adapter.LookbookAdapter;
 import com.example.ezhospital.Adapter.MyViewPagerAdapter;
 import com.example.ezhospital.Common.Common;
 import com.example.ezhospital.Common.NonSwipeViewPager;
@@ -77,7 +75,7 @@ public class BookingActivity extends AppCompatActivity {
             }
             else if (Common.step==2)//pick time slot
             {
-                if (Common.currentBarber!=null)
+                if (Common.currentBarber !=null)
                     loadTimeSlotOfBarber(Common.currentBarber.getBarberId());
             }
             else if (Common.step==3)//confirm
@@ -120,13 +118,13 @@ public class BookingActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         ArrayList<Barber> barbers = new ArrayList<>();
                         for (QueryDocumentSnapshot barberSnapShot:task.getResult()){
-                            Barber barber=barberSnapShot.toObject(Barber.class);
+                            Barber barber =barberSnapShot.toObject(Barber.class);
                             barber.setPassword("");
                             barber.setBarberId(barberSnapShot.getId());
                             barbers.add(barber);
                         }
                         Intent intent=new Intent(Common.KEY_BARBER_LOAD_DONE);
-                        intent.putParcelableArrayListExtra(Common.KEY_BARBER_LOAD_DONE,barbers);
+                        intent.putParcelableArrayListExtra(Common.KEY_BARBER_LOAD_DONE, barbers);
                         localBroadcastManager.sendBroadcast(intent);
 
                         dialog.dismiss();
@@ -150,7 +148,7 @@ public class BookingActivity extends AppCompatActivity {
             if (step==1)
                 Common.currentSalon=intent.getParcelableExtra(Common.KEY_SALON_STORE);
             else if (step==2)
-                Common.currentBarber=intent.getParcelableExtra(Common.KEY_BARBER_SELECTED);
+                Common.currentBarber =intent.getParcelableExtra(Common.KEY_BARBER_SELECTED);
             else if (step==3)
                 Common.currentTimeSlot=intent.getIntExtra(Common.KEY_TIME_SLOT,-1);
             btn_next_step.setEnabled(true);

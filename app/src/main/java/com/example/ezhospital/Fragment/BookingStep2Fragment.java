@@ -16,7 +16,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ezhospital.Adapter.MyBarberAdapter;
+import com.example.ezhospital.Adapter.MyDoctorAdapter;
 import com.example.ezhospital.Common.Common;
 import com.example.ezhospital.Common.SpaceItemDecoration;
 import com.example.ezhospital.Model.Barber;
@@ -40,9 +40,9 @@ public class BookingStep2Fragment extends Fragment {
     private BroadcastReceiver barberDoneReceiver=new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ArrayList<Barber> barberArrayList=intent.getParcelableArrayListExtra(Common.KEY_BARBER_LOAD_DONE);
+            ArrayList<Barber> barberArrayList =intent.getParcelableArrayListExtra(Common.KEY_BARBER_LOAD_DONE);
 
-            MyBarberAdapter adapter=new MyBarberAdapter(getContext(),barberArrayList);
+            MyDoctorAdapter adapter=new MyDoctorAdapter(getContext(), barberArrayList);
             recycler_barber.setAdapter(adapter);
         }
     };

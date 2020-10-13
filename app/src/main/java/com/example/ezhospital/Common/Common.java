@@ -3,7 +3,6 @@ package com.example.ezhospital.Common;
 import com.example.ezhospital.Model.Barber;
 import com.example.ezhospital.Model.BookingInformation;
 import com.example.ezhospital.Model.Salon;
-import com.example.ezhospital.Model.User;
 import com.google.firebase.Timestamp;
 
 import java.text.SimpleDateFormat;

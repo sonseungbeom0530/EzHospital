@@ -13,17 +13,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ezhospital.Adapter.MySalonAdapter;
+import com.example.ezhospital.Adapter.MyDepartmentAdapter;
 import com.example.ezhospital.Common.Common;
 import com.example.ezhospital.Common.SpaceItemDecoration;
-import com.example.ezhospital.Interface.IAllSalonLoadListener;
+import com.example.ezhospital.Interface.IHospitalLoadListener;
 import com.example.ezhospital.Interface.IBranchLoadListener;
 import com.example.ezhospital.Model.Salon;
 import com.example.ezhospital.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.datepicker.MaterialStyledDatePickerDialog;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -38,13 +37,13 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
 
-public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListener, IBranchLoadListener {
+public class BookingStep1Fragment extends Fragment implements IHospitalLoadListener, IBranchLoadListener {
 
     //Variable
     CollectionReference allSalonRef;
     CollectionReference branchRef;
 
-    IAllSalonLoadListener iAllSalonLoadListener;
+    IHospitalLoadListener iHospitalLoadListener;
     IBranchLoadListener iBranchLoadListener;
 
     @BindView(R.id.spinner)
@@ -68,7 +67,7 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         allSalonRef= FirebaseFirestore.getInstance().collection("AllSalon");
-        iAllSalonLoadListener=this;
+        iHospitalLoadListener =this;
         iBranchLoadListener=this;
 
         alertDialog=new SpotsDialog.Builder().setContext(getActivity()).build();
@@ -104,13 +103,13 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
                             list.add("Please choose city");
                                 for (QueryDocumentSnapshot documentSnapshot:task.getResult())
                                     list.add(documentSnapshot.getId());
-                                iAllSalonLoadListener.onAllSalonLoadSuccess(list);
+                                iHospitalLoadListener.onAllSalonLoadSuccess(list);
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                iAllSalonLoadListener.onAllSalonLoadFailed(e.getMessage());
+                iHospitalLoadListener.onAllSalonLoadFailed(e.getMessage());
             }
         });
     }
@@ -168,7 +167,7 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
 
     @Override
     public void onBranchLoadSuccess(List<Salon> salonList) {
-        MySalonAdapter adapter=new MySalonAdapter(getActivity(),salonList);
+        MyDepartmentAdapter adapter=new MyDepartmentAdapter(getActivity(),salonList);
         recycler_salon.setAdapter(adapter);
         recycler_salon.setVisibility(View.VISIBLE);
         alertDialog.dismiss();
