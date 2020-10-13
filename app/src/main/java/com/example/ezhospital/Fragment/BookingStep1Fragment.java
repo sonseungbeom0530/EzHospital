@@ -18,7 +18,7 @@ import com.example.ezhospital.Common.Common;
 import com.example.ezhospital.Common.SpaceItemDecoration;
 import com.example.ezhospital.Interface.IHospitalLoadListener;
 import com.example.ezhospital.Interface.IBranchLoadListener;
-import com.example.ezhospital.Model.Salon;
+import com.example.ezhospital.Model.Department;
 import com.example.ezhospital.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -100,7 +100,7 @@ public class BookingStep1Fragment extends Fragment implements IHospitalLoadListe
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()){
                             List<String> list=new ArrayList<>();
-                            list.add("Please choose city");
+                            list.add("Please choose floor");
                                 for (QueryDocumentSnapshot documentSnapshot:task.getResult())
                                     list.add(documentSnapshot.getId());
                                 iHospitalLoadListener.onAllSalonLoadSuccess(list);
@@ -141,13 +141,13 @@ public class BookingStep1Fragment extends Fragment implements IHospitalLoadListe
         branchRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<Salon> list=new ArrayList<>();
+                List<Department> list=new ArrayList<>();
                 if (task.isSuccessful()){
                     for (QueryDocumentSnapshot documentSnapshot:task.getResult())
                     {
-                        Salon salon=documentSnapshot.toObject(Salon.class);
-                        salon.setSalonId(documentSnapshot.getId());
-                        list.add(salon);
+                        Department department =documentSnapshot.toObject(Department.class);
+                        department.setSalonId(documentSnapshot.getId());
+                        list.add(department);
                     }
                     iBranchLoadListener.onBranchLoadSuccess(list);
                 }
@@ -166,8 +166,8 @@ public class BookingStep1Fragment extends Fragment implements IHospitalLoadListe
     }
 
     @Override
-    public void onBranchLoadSuccess(List<Salon> salonList) {
-        MyDepartmentAdapter adapter=new MyDepartmentAdapter(getActivity(),salonList);
+    public void onBranchLoadSuccess(List<Department> departmentList) {
+        MyDepartmentAdapter adapter=new MyDepartmentAdapter(getActivity(), departmentList);
         recycler_salon.setAdapter(adapter);
         recycler_salon.setVisibility(View.VISIBLE);
         alertDialog.dismiss();

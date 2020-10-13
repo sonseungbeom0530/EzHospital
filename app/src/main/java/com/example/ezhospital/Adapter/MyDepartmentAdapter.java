@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ezhospital.Common.Common;
 import com.example.ezhospital.Interface.IRecyclerItemSelectedListener;
-import com.example.ezhospital.Model.Salon;
+import com.example.ezhospital.Model.Department;
 import com.example.ezhospital.R;
 
 import java.util.ArrayList;
@@ -24,13 +24,13 @@ import java.util.List;
 public class MyDepartmentAdapter extends RecyclerView.Adapter<MyDepartmentAdapter.MyViewHolder> {
 
     Context context;
-    List<Salon> salonList;
+    List<Department> departmentList;
     List<CardView> cardViewList;
     LocalBroadcastManager localBroadcastManager;
 
-    public MyDepartmentAdapter(Context context, List<Salon> salonList) {
+    public MyDepartmentAdapter(Context context, List<Department> departmentList) {
         this.context = context;
-        this.salonList = salonList;
+        this.departmentList = departmentList;
         cardViewList=new ArrayList<>();
         localBroadcastManager=LocalBroadcastManager.getInstance(context);
     }
@@ -45,8 +45,8 @@ public class MyDepartmentAdapter extends RecyclerView.Adapter<MyDepartmentAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-        myViewHolder.txt_salon_name.setText(salonList.get(position).getName());
-        myViewHolder.txt_salon_address.setText(salonList.get(position).getAddress());
+        myViewHolder.txt_salon_name.setText(departmentList.get(position).getName());
+        myViewHolder.txt_salon_address.setText(departmentList.get(position).getAddress());
         if(!cardViewList.contains(myViewHolder.card_salon))
             cardViewList.add(myViewHolder.card_salon);
 
@@ -63,7 +63,7 @@ public class MyDepartmentAdapter extends RecyclerView.Adapter<MyDepartmentAdapte
 
                 //send broadcast to tell booking activity enable button next
                 Intent intent=new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-                intent.putExtra(Common.KEY_SALON_STORE,salonList.get(pos));
+                intent.putExtra(Common.KEY_SALON_STORE, departmentList.get(pos));
                 intent.putExtra(Common.KEY_STEP,1);
                 localBroadcastManager.sendBroadcast(intent);
             }
@@ -72,7 +72,7 @@ public class MyDepartmentAdapter extends RecyclerView.Adapter<MyDepartmentAdapte
 
     @Override
     public int getItemCount() {
-        return salonList.size();
+        return departmentList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

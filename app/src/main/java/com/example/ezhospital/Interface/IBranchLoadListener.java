@@ -1,10 +1,10 @@
 package com.example.ezhospital.Interface;
 
-import com.example.ezhospital.Model.Salon;
+import com.example.ezhospital.Model.Department;
 
 import java.util.List;
 
 public interface IBranchLoadListener {
-    void onBranchLoadSuccess(List<Salon> salonList);
+    void onBranchLoadSuccess(List<Department> departmentList);
     void onBranchLoadFailed(String message);
 }

@@ -3,13 +3,13 @@ package com.example.ezhospital.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Salon implements Parcelable{
+public class Department implements Parcelable{
     private String name,address,website,phone,openHours,salonId;
 
-    public Salon() {
+    public Department() {
     }
 
-    protected Salon(Parcel in) {
+    protected Department(Parcel in) {
         name = in.readString();
         address = in.readString();
         website = in.readString();
@@ -33,15 +33,15 @@ public class Salon implements Parcelable{
         return 0;
     }
 
-    public static final Creator<Salon> CREATOR = new Creator<Salon>() {
+    public static final Creator<Department> CREATOR = new Creator<Department>() {
         @Override
-        public Salon createFromParcel(Parcel in) {
-            return new Salon(in);
+        public Department createFromParcel(Parcel in) {
+            return new Department(in);
         }
 
         @Override
-        public Salon[] newArray(int size) {
-            return new Salon[size];
+        public Department[] newArray(int size) {
+            return new Department[size];
         }
     };
 

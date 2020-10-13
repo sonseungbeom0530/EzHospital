@@ -70,8 +70,8 @@ public class BookingActivity extends AppCompatActivity {
         if (Common.step<3 || Common.step==0){
             Common.step++;
             if (Common.step==1){
-                if (Common.currentSalon!=null)
-                    loadBarberBySalon(Common.currentSalon.getSalonId());
+                if (Common.currentDepartment !=null)
+                    loadBarberBySalon(Common.currentDepartment.getSalonId());
             }
             else if (Common.step==2)//pick time slot
             {
@@ -146,7 +146,7 @@ public class BookingActivity extends AppCompatActivity {
 
             int step=intent.getIntExtra(Common.KEY_STEP,0);
             if (step==1)
-                Common.currentSalon=intent.getParcelableExtra(Common.KEY_SALON_STORE);
+                Common.currentDepartment =intent.getParcelableExtra(Common.KEY_SALON_STORE);
             else if (step==2)
                 Common.currentBarber =intent.getParcelableExtra(Common.KEY_BARBER_SELECTED);
             else if (step==3)
@@ -224,7 +224,7 @@ public class BookingActivity extends AppCompatActivity {
 
     private void setupStepView() {
         List<String> stepList=new ArrayList<>();
-        stepList.add("Salon");
+        stepList.add("Department");
         stepList.add("Barber");
         stepList.add("Time");
         stepList.add("Confirm");

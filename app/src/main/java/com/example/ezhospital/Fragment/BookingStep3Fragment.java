@@ -81,7 +81,7 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
                 .collection("AllSalon")
                 .document(Common.city)
                 .collection("Branch")
-                .document(Common.currentSalon.getSalonId())
+                .document(Common.currentDepartment.getSalonId())
                 .collection("Barber")
                 .document(Common.currentBarber.getBarberId());
 
@@ -95,7 +95,7 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
                                 .collection("AllSalon")
                                 .document(Common.city)
                                 .collection("Branch")
-                                .document(Common.currentSalon.getSalonId())
+                                .document(Common.currentDepartment.getSalonId())
                                 .collection("Barber")
                                 .document(Common.currentBarber.getBarberId())
                                 .collection(bookDate); //bookDate is date simpleformat with dd_MM_YYYY

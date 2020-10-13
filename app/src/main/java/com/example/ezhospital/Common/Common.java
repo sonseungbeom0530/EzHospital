@@ -2,7 +2,7 @@ package com.example.ezhospital.Common;
 
 import com.example.ezhospital.Model.Barber;
 import com.example.ezhospital.Model.BookingInformation;
-import com.example.ezhospital.Model.Salon;
+import com.example.ezhospital.Model.Department;
 import com.google.firebase.Timestamp;
 
 import java.text.SimpleDateFormat;
@@ -23,7 +23,7 @@ public class Common {
     public static final Object DISABLE_TAG ="DISABLE" ;
     public static final String KEY_TIME_SLOT = "TIME_SLOT";
     public static final String KEY_CONFIRM_BOOKING ="CONFIRM_BOOKING" ;
-    public static Salon currentSalon;
+    public static Department currentDepartment;
     public static int step=0;
     public static String city="";
     public static Barber currentBarber;

@@ -105,9 +105,9 @@ public class BookingStep4Fragment extends Fragment {
        //bookingInformation.setCustomerName(Common.currentUser.getName());
         //bookingInformation.setCustomerPhone(Common.currentUser.getPhone());
 
-        bookingInformation.setSalonId(Common.currentSalon.getSalonId());
-        bookingInformation.setSalonAddress(Common.currentSalon.getAddress());
-        bookingInformation.setSalonName(Common.currentSalon.getName());
+        bookingInformation.setSalonId(Common.currentDepartment.getSalonId());
+        bookingInformation.setSalonAddress(Common.currentDepartment.getAddress());
+        bookingInformation.setSalonName(Common.currentDepartment.getName());
         bookingInformation.setTime(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
                 .append(" at")
                 .append(simpleDateFormat.format(bookingDateWithourHouse.getTime())).toString());
@@ -117,7 +117,7 @@ public class BookingStep4Fragment extends Fragment {
                 .collection("AllSalon")
                 .document(Common.city)
                 .collection("Branch")
-                .document(Common.currentSalon.getSalonId())
+                .document(Common.currentDepartment.getSalonId())
                 .collection("Barber")
                 .document(Common.currentBarber.getBarberId())
                 .collection(Common.simpleDateFormat.format(Common.bookingDate.getTime()))
@@ -173,8 +173,8 @@ public class BookingStep4Fragment extends Fragment {
         .append(" with ")
         .append(Common.currentBarber.getName())
         .append(" at ")
-        .append(Common.currentSalon.getName()).toString(),
-                new StringBuilder("Address : ").append(Common.currentSalon.getAddress()).toString());
+        .append(Common.currentDepartment.getName()).toString(),
+                new StringBuilder("Address : ").append(Common.currentDepartment.getAddress()).toString());
 
     }
 
@@ -307,7 +307,7 @@ public class BookingStep4Fragment extends Fragment {
     private void resetStaticData() {
         Common.step=0;
         Common.currentTimeSlot=-1;
-        Common.currentSalon=null;
+        Common.currentDepartment =null;
         Common.currentBarber =null;
         Common.bookingDate.add(Calendar.DATE,0);
     }
@@ -325,11 +325,11 @@ public class BookingStep4Fragment extends Fragment {
         .append(" at")
         .append(simpleDateFormat.format(Common.bookingDate.getTime())));
 
-        txt_salon_address.setText(Common.currentSalon.getAddress());
-        //txt_salon_website.setText(Common.currentSalon.getWebsite());
+        txt_salon_address.setText(Common.currentDepartment.getAddress());
+        //txt_salon_website.setText(Common.currentDepartment.getWebsite());
         txt_salon_website.setText("www.dsf.com");
-        txt_salon_name.setText(Common.currentSalon.getName());
-        //txt_salon_open_hours.setText(Common.currentSalon.getOpenHours());
+        txt_salon_name.setText(Common.currentDepartment.getName());
+        //txt_salon_open_hours.setText(Common.currentDepartment.getOpenHours());
         txt_salon_open_hours.setText("9:00");
 
     }
