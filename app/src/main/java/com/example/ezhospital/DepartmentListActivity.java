@@ -76,6 +76,7 @@ public class DepartmentListActivity extends AppCompatActivity implements IOnLoad
                             for (DocumentSnapshot departmentSnapShot:task.getResult())
                             {
                                 Department department=departmentSnapShot.toObject(Department.class);
+                                department.setSalonId(departmentSnapShot.getId());
                                 departments.add(department);
                             }
                             iBranchLoadListener.onBranchLoadSuccess(departments);

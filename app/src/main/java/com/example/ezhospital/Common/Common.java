@@ -33,6 +33,7 @@ public class Common {
     public static SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd_MM_yyyy");
     public static BookingInformation currentBooking;
     public static String currentBookingId="";
+    public static Department selectedDepartment;
 
     public static String convertTimeSlotToString(int slot) {
         switch(slot)

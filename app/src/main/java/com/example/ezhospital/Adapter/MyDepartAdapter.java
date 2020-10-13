@@ -1,26 +1,39 @@
 package com.example.ezhospital.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ezhospital.AdminCheckBookingActivity;
+import com.example.ezhospital.Common.AdminAuthenticationDialog;
 import com.example.ezhospital.Common.Common;
+import com.example.ezhospital.Interface.IDialogClickListener;
 import com.example.ezhospital.Interface.IRecyclerItemSelectedListener;
 import com.example.ezhospital.Model.Department;
 import com.example.ezhospital.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyDepartAdapter extends RecyclerView.Adapter<MyDepartAdapter.MyViewHolder> {
+import dmax.dialog.SpotsDialog;
+
+public class MyDepartAdapter extends RecyclerView.Adapter<MyDepartAdapter.MyViewHolder> implements IDialogClickListener {
 
     Context context;
     List<Department> departmentList;
@@ -52,26 +65,73 @@ public class MyDepartAdapter extends RecyclerView.Adapter<MyDepartAdapter.MyView
         myViewHolder.setiRecyclerItemSelectedListener(new IRecyclerItemSelectedListener() {
             @Override
             public void onItemSelectedListener(View view, int pos) {
-                //set white background for all card not be selected
-                for (CardView cardView:cardViewList)
-                    cardView.setCardBackgroundColor(context.getResources().getColor(android.R.color.white));
 
-                //Set selected BG for only selected item
-                myViewHolder.card_salon.setCardBackgroundColor(context.getResources()
-                        .getColor(android.R.color.holo_orange_dark));
-
-                //send broadcast to tell booking activity enable button next
-                Intent intent=new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-                intent.putExtra(Common.KEY_SALON_STORE, departmentList.get(pos));
-                intent.putExtra(Common.KEY_STEP,1);
-                localBroadcastManager.sendBroadcast(intent);
+                Common.selectedDepartment=departmentList.get(pos);
+                showAuthenticationDialog();
             }
         });
+    }
+
+    private void showAuthenticationDialog() {
+        AdminAuthenticationDialog.getInstance().showAuthenticationDialog("Admin Authentication",
+                "Authentication",
+                "Cancel",context,this);
     }
 
     @Override
     public int getItemCount() {
         return departmentList.size();
+    }
+
+    @Override
+    public void onClickPositiveButton(DialogInterface dialogInterface, String userName, String password) {
+        AlertDialog loading=new SpotsDialog.Builder().setCancelable(false).setContext(context).build();
+
+        loading.show();
+
+        FirebaseFirestore.getInstance()
+                .collection("Hospital")
+                .document(Common.state_name)
+                .collection("Branch")
+                .document(Common.selectedDepartment.getSalonId())
+                .collection("Doctor")
+                .whereEqualTo("username",userName)
+                .whereEqualTo("password",password)
+                .limit(1)
+                .get()
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context,e.getMessage(), Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    if (task.getResult().size()>0)
+                    {
+                        dialogInterface.dismiss();
+                        loading.dismiss();
+                        Intent intent=new Intent(context, AdminCheckBookingActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+
+                    }else {
+                        loading.dismiss();
+                        Toast.makeText(context,"Wrong name/password",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onClickNegativeButton(DialogInterface dialogInterface) {
+        dialogInterface.dismiss();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

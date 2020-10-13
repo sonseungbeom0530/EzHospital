@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DepartmentListActivity"></activity>
+        <activity android:name=".AdminCheckBookingActivity"></activity>
+        <activity android:name=".DepartmentListActivity" />
         <activity android:name=".AdminBookingActivity" />
         <activity android:name=".BookingActivity" />
         <activity android:name=".AdminMainActivity" />
