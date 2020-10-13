@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class Common {
 
+    public static String state_name="";
     public static final String EVENT_URI_CACHE ="URI_EVENT_SAVE" ;
     public static String IS_LOGIN="IsLogin";
     public static final String KEY_ENABLE_BUTTON_NEXT="ENABLE_BUTTON_NEXT";

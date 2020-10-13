@@ -10,12 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ezhospital.Adapter.HomeSliderAdapter;
 import com.example.ezhospital.Adapter.LookbookAdapter;
+import com.example.ezhospital.AdminBookingActivity;
+import com.example.ezhospital.BookingActivity;
 import com.example.ezhospital.Interface.IBannerLoadListener;
 import com.example.ezhospital.Interface.ILookBookLoadListener;
 import com.example.ezhospital.LoginActivity;
@@ -42,6 +45,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import ss.com.bannerslider.Slider;
 
@@ -56,6 +60,11 @@ public class AdminHomeFragment extends Fragment implements IBannerLoadListener, 
     Slider banner_slider;
     @BindView(R.id.recycler_look_book)
     RecyclerView recycler_look_book;
+
+    @OnClick(R.id.card_view_booking)
+    void booking(){
+        startActivity(new Intent(getActivity(), AdminBookingActivity.class));
+    }
 
     TextView txt_user_name,txt_member_type;
 
