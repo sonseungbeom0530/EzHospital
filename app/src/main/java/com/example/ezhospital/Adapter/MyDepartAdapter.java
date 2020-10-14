@@ -19,12 +19,16 @@ import com.example.ezhospital.AdminCheckBookingActivity;
 import com.example.ezhospital.Common.AdminAuthenticationDialog;
 import com.example.ezhospital.Common.Common;
 import com.example.ezhospital.Interface.IDialogClickListener;
+import com.example.ezhospital.Interface.IGetBarberListener;
 import com.example.ezhospital.Interface.IRecyclerItemSelectedListener;
+import com.example.ezhospital.Interface.IUserLoginRememberListener;
+import com.example.ezhospital.Model.Barber;
 import com.example.ezhospital.Model.Department;
 import com.example.ezhospital.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -38,13 +42,17 @@ public class MyDepartAdapter extends RecyclerView.Adapter<MyDepartAdapter.MyView
     Context context;
     List<Department> departmentList;
     List<CardView> cardViewList;
-    LocalBroadcastManager localBroadcastManager;
 
-    public MyDepartAdapter(Context context, List<Department> departmentList) {
+    IUserLoginRememberListener iUserLoginRememberListener;
+    IGetBarberListener iGetBarberListener;
+
+    public MyDepartAdapter(Context context, List<Department> departmentList,IUserLoginRememberListener iUserLoginRememberListener,IGetBarberListener iGetBarberListener) {
         this.context = context;
         this.departmentList = departmentList;
         cardViewList=new ArrayList<>();
-        localBroadcastManager=LocalBroadcastManager.getInstance(context);
+        this.iGetBarberListener=iGetBarberListener;
+        this.iUserLoginRememberListener=iUserLoginRememberListener;
+
     }
 
     @NonNull
@@ -114,6 +122,16 @@ public class MyDepartAdapter extends RecyclerView.Adapter<MyDepartAdapter.MyView
                     {
                         dialogInterface.dismiss();
                         loading.dismiss();
+
+                        iUserLoginRememberListener.onUserLoginSuccess(userName);
+                        Barber barber=new Barber();
+                        for (DocumentSnapshot barberSnapShot:task.getResult())
+                        {
+                            barber=barberSnapShot.toObject(Barber.class);
+                            barber.setBarberId(barberSnapShot.getId());
+                        }
+                        iGetBarberListener.onGetBarberSuccess(barber);
+
                         Intent intent=new Intent(context, AdminCheckBookingActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

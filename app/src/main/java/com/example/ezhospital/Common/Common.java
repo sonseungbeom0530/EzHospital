@@ -11,6 +11,10 @@ import java.util.Date;
 
 public class Common {
 
+    public static final String LOGGED_KEY = "LOGGED";
+    public static final String STATE_KEY ="STATE" ;
+    public static final String DEPARTMENT_KEY = "DEPARTMENT";
+    public static final String DOCTOR_KEY = "DOCTOR";
     public static String state_name="";
     public static final String EVENT_URI_CACHE ="URI_EVENT_SAVE" ;
     public static String IS_LOGIN="IsLogin";

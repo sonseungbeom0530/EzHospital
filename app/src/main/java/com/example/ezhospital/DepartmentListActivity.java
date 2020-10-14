@@ -15,7 +15,10 @@ import com.example.ezhospital.Adapter.MyDepartmentAdapter;
 import com.example.ezhospital.Common.Common;
 import com.example.ezhospital.Common.SpaceItemDecoration;
 import com.example.ezhospital.Interface.IBranchLoadListener;
+import com.example.ezhospital.Interface.IGetBarberListener;
 import com.example.ezhospital.Interface.IOnLoadCountFloor;
+import com.example.ezhospital.Interface.IUserLoginRememberListener;
+import com.example.ezhospital.Model.Barber;
 import com.example.ezhospital.Model.Department;
 import com.example.ezhospital.Model.Floor;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +35,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
+import io.paperdb.Paper;
 
-public class DepartmentListActivity extends AppCompatActivity implements IOnLoadCountFloor, IBranchLoadListener {
+public class DepartmentListActivity extends AppCompatActivity implements IOnLoadCountFloor, IBranchLoadListener, IGetBarberListener, IUserLoginRememberListener {
 
     @BindView(R.id.txt_floor_count)
     TextView txt_floor_count;
@@ -111,7 +116,7 @@ public class DepartmentListActivity extends AppCompatActivity implements IOnLoad
 
     @Override
     public void onBranchLoadSuccess(List<Department> branchList) {
-        MyDepartAdapter departAdapter=new MyDepartAdapter(this,branchList);
+        MyDepartAdapter departAdapter=new MyDepartAdapter(this,branchList,this,this);
         recycler_floor.setAdapter(departAdapter);
         dialog.dismiss();
     }
@@ -121,5 +126,21 @@ public class DepartmentListActivity extends AppCompatActivity implements IOnLoad
 
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
         dialog.dismiss();
+    }
+
+    @Override
+    public void onGetBarberSuccess(Barber barber) {
+        Common.currentBarber=barber;
+        Paper.book().write(Common.DOCTOR_KEY,new Gson().toJson(barber));
+
+    }
+
+    @Override
+    public void onUserLoginSuccess(String user) {
+        Paper.init(this);
+        Paper.book().write(Common.LOGGED_KEY,user);
+        Paper.book().write(Common.STATE_KEY,Common.state_name);
+        Paper.book().write(Common.DEPARTMENT_KEY,new Gson().toJson(Common.selectedDepartment));
+
     }
 }
