@@ -25,6 +25,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.ezhospital.Common.Common;
 import com.example.ezhospital.Model.BookingInformation;
+import com.example.ezhospital.Model.MyNotification;
 import com.example.ezhospital.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -272,13 +274,36 @@ public class BookingStep4Fragment extends Fragment {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            if (alertDialog.isShowing())
-                                                alertDialog.dismiss();
 
-                                            addToCalendar(Common.bookingDate,Common.convertTimeSlotToString(Common.currentTimeSlot));
-                                            resetStaticData();
-                                            getActivity().finish();
-                                            Toast.makeText(getContext(),"Success!",Toast.LENGTH_SHORT).show();
+                                            MyNotification myNotification=new MyNotification();
+                                            myNotification.setUid(UUID.randomUUID().toString());
+                                            myNotification.setTitle("New Booking");
+                                            myNotification.setContent("you have a new appointment for customer");
+                                            myNotification.setRead(false);
+
+                                            FirebaseFirestore.getInstance()
+                                                    .collection("Hospital")
+                                                    .document(Common.city)
+                                                    .collection("Branch")
+                                                    .document(Common.currentDepartment.getSalonId())
+                                                    .collection("Doctor")
+                                                    .document(Common.currentBarber.getBarberId())
+                                                    .collection("Notifications")
+                                                    .document(myNotification.getUid())
+                                                    .set(myNotification)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    alertDialog.dismiss();
+
+                                                    addToCalendar(Common.bookingDate,Common.convertTimeSlotToString(Common.currentTimeSlot));
+                                                    resetStaticData();
+                                                    getActivity().finish();
+                                                    Toast.makeText(getContext(),"Success!",Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+
+
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
