@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.ezhospital.Fragment.HomeFragment;
-import com.example.ezhospital.Fragment.ProfileFragment;
+import com.example.ezhospital.Fragment.UserProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 if (menuItem.getItemId()==R.id.action_home)
                     fragment=new HomeFragment();
                 else if (menuItem.getItemId()==R.id.action_view_info)
-                    fragment=new ProfileFragment();
+                    fragment=new UserProfileFragment();
 
                 return loadFragment(fragment);
             }

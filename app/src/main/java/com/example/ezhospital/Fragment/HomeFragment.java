@@ -29,7 +29,9 @@ import android.widget.Toast;
 import com.example.ezhospital.Adapter.HomeSliderAdapter;
 import com.example.ezhospital.Adapter.LookbookAdapter;
 import com.example.ezhospital.BookingActivity;
+import com.example.ezhospital.ChatDashboardActivity;
 import com.example.ezhospital.Common.Common;
+import com.example.ezhospital.InformationDashboardActivity;
 import com.example.ezhospital.Interface.IBannerLoadListener;
 import com.example.ezhospital.Interface.IBookingInfoLoadListener;
 import com.example.ezhospital.Interface.IBookingInformationChangeListener;
@@ -212,7 +214,14 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
     IBookingInformationChangeListener iBookingInformationChangeListener;
 
 
-
+    @OnClick(R.id.card_view_chat)
+    void viewChat(){
+        startActivity(new Intent(getActivity(), ChatDashboardActivity.class));
+    }
+    @OnClick(R.id.card_view_medical_information)
+    void viewMedicalInformation(){
+        startActivity(new Intent(getActivity(), InformationDashboardActivity.class));
+    }
     @OnClick(R.id.card_view_booking)
     void booking(){
         startActivity(new Intent(getActivity(), BookingActivity.class));
