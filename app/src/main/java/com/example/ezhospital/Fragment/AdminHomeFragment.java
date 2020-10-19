@@ -70,13 +70,17 @@ public class AdminHomeFragment extends Fragment implements IBannerLoadListener, 
         startActivity(new Intent(getActivity(), AdminChatDashboardActivity.class));
     }
     @OnClick(R.id.card_view_medical_information)
-    void viewMedicalInformation(){
-        startActivity(new Intent(getActivity(), WriteInformationActivity.class));
-    }
+    void viewMedicalInformation(){ startActivity(new Intent(getActivity(), WriteInformationActivity.class)); }
     @OnClick(R.id.card_view_booking)
     void booking(){
         startActivity(new Intent(getActivity(), AdminBookingActivity.class));
     }
+    @OnClick(R.id.card_logout)
+    void logout(){
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+    }
+
+
 
     TextView txt_user_name,txt_member_type;
 
@@ -96,7 +100,7 @@ public class AdminHomeFragment extends Fragment implements IBannerLoadListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.frament_admin_home, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         txt_user_name = view.findViewById(R.id.txt_user_name);
