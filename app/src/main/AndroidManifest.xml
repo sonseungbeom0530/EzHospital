@@ -17,7 +17,13 @@
         android:theme="@style/NoAppTheme">
         <activity android:name=".EditUserProfileActivity"></activity>
         <activity
-            android:name=".ChatDashboardActivity"
+        android:name=".ChatDashboardActivity"
+        android:theme="@style/AppTheme" />
+        <activity
+            android:name=".WriteInformationActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AdminChatDashboardActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".AdminCheckBookingActivity" />
         <activity

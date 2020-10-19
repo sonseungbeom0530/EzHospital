@@ -18,13 +18,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ezhospital.Adapter.HomeSliderAdapter;
 import com.example.ezhospital.Adapter.LookbookAdapter;
 import com.example.ezhospital.AdminBookingActivity;
+import com.example.ezhospital.AdminChatDashboardActivity;
 import com.example.ezhospital.BookingActivity;
+import com.example.ezhospital.ChatDashboardActivity;
+import com.example.ezhospital.InformationDashboardActivity;
 import com.example.ezhospital.Interface.IBannerLoadListener;
 import com.example.ezhospital.Interface.ILookBookLoadListener;
 import com.example.ezhospital.LoginActivity;
 import com.example.ezhospital.Model.Banner;
 import com.example.ezhospital.R;
 import com.example.ezhospital.Service.PicassoImageLoadingService;
+import com.example.ezhospital.WriteInformationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -61,6 +65,14 @@ public class AdminHomeFragment extends Fragment implements IBannerLoadListener, 
     @BindView(R.id.recycler_look_book)
     RecyclerView recycler_look_book;
 
+    @OnClick(R.id.card_view_chat)
+    void viewChat(){
+        startActivity(new Intent(getActivity(), AdminChatDashboardActivity.class));
+    }
+    @OnClick(R.id.card_view_medical_information)
+    void viewMedicalInformation(){
+        startActivity(new Intent(getActivity(), WriteInformationActivity.class));
+    }
     @OnClick(R.id.card_view_booking)
     void booking(){
         startActivity(new Intent(getActivity(), AdminBookingActivity.class));
