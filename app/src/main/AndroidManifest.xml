@@ -15,10 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoAppTheme">
-        <activity android:name=".EditUserProfileActivity"></activity>
+        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".EditUserProfileActivity" />
         <activity
-        android:name=".ChatDashboardActivity"
-        android:theme="@style/AppTheme" />
+            android:name=".ChatDashboardActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".WriteInformationActivity"
             android:theme="@style/AppTheme" />

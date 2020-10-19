@@ -100,7 +100,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_view_cart"
+                android:id="@+id/card_view_map"
                 android:layout_marginRight="8dp"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 app:cardCornerRadius="8dp"
@@ -114,13 +114,13 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:src="@drawable/ic_baseline_event_note_24"
+                        android:src="@drawable/ic_baseline_map_24"
                         android:layout_gravity="center_horizontal"
                         android:layout_width="50dp"
                         android:layout_height="50dp"/>
 
                     <TextView
-                        android:text="Cart"
+                        android:text="Map"
                         android:layout_gravity="center_horizontal"
                         android:textSize="17sp"
                         android:layout_width="wrap_content"
@@ -168,7 +168,7 @@
                 app:cardCornerRadius="8dp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content">
+                android:layout_height="73dp">
 
                 <LinearLayout
                     android:orientation="vertical"

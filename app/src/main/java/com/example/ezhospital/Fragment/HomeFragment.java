@@ -38,6 +38,7 @@ import com.example.ezhospital.Interface.IBookingInformationChangeListener;
 import com.example.ezhospital.Interface.ILookBookLoadListener;
 import com.example.ezhospital.LoginActivity;
 import com.example.ezhospital.MainActivity;
+import com.example.ezhospital.MapActivity;
 import com.example.ezhospital.Model.Banner;
 import com.example.ezhospital.Model.BookingInformation;
 import com.example.ezhospital.R;
@@ -225,6 +226,10 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
     @OnClick(R.id.card_view_booking)
     void booking(){
         startActivity(new Intent(getActivity(), BookingActivity.class));
+    }
+    @OnClick(R.id.card_view_map)
+    void viewMap(){
+        startActivity(new Intent(getActivity(), MapActivity.class));
     }
 
 
