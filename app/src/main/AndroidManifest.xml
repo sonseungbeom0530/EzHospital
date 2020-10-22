@@ -32,7 +32,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ChatActivity"
-            android:theme="@style/AppTheme" />
+            />
         <activity
             android:name=".PostDetailActivity"
             android:theme="@style/AppTheme" />

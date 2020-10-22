@@ -109,14 +109,6 @@
 
     </LinearLayout>
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/googleLoginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout"
-        android:padding="5dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp">
-    </com.google.android.gms.common.SignInButton>
+
 
 </RelativeLayout>

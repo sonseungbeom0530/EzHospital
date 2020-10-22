@@ -83,9 +83,9 @@ public class UsersFragment extends Fragment {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     ModelUser modelUser = ds.getValue(ModelUser.class);
                     //get all users except currently signed in user
-                    if(!modelUser.getUid().equals(fUser.getUid())){
+                    //if(!modelUser.getUid().equals(fUser.getUid())){
                         userList.add(modelUser);
-                    }
+                  //  }
                     //adapter
                     adapterUsers=new AdapterUsers(getActivity(),userList);
                     //set adapter to recycler view

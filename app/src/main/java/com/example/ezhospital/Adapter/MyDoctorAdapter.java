@@ -46,7 +46,7 @@ public class MyDoctorAdapter extends RecyclerView.Adapter<MyDoctorAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
         myViewHolder.txt_barber_name.setText(barberList.get(position).getName());
-        myViewHolder.ratingBar.setRating((float) barberList.get(position).getRating());
+        //myViewHolder.ratingBar.setRating((float) barberList.get(position).getRating());
         if (!cardViewList.contains(myViewHolder.card_barber))
             cardViewList.add(myViewHolder.card_barber);
 

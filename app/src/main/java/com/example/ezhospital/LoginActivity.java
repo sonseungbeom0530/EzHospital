@@ -3,7 +3,6 @@ package com.example.ezhospital;
 import androidx.annotation.NonNull;
 
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -34,9 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.ezhospital.Common.Common;
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 

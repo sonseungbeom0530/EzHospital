@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_salon_phone"
-                android:text="2356 3246"
+                android:text="6256 6011"
                 android:textSize="14sp"
                 android:layout_marginLeft="4dp"
                 />

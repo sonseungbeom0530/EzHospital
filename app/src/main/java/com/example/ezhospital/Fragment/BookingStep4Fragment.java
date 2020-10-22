@@ -352,10 +352,10 @@ public class BookingStep4Fragment extends Fragment {
 
         txt_salon_address.setText(Common.currentDepartment.getAddress());
         //txt_salon_website.setText(Common.currentDepartment.getWebsite());
-        txt_salon_website.setText("www.dsf.com");
+        txt_salon_website.setText("www.ttsh.com.sg/Pages/default.aspx");
         txt_salon_name.setText(Common.currentDepartment.getName());
         //txt_salon_open_hours.setText(Common.currentDepartment.getOpenHours());
-        txt_salon_open_hours.setText("9:00");
+        txt_salon_open_hours.setText("9:00-22:00");
 
     }
 
